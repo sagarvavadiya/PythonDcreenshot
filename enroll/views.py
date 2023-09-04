@@ -5,10 +5,8 @@ from .models import Task
 from .serializers import TaskSerializer
 from PIL import ImageGrab
 import pyautogui
-import pybase64
-screen_width, screen_height = pyautogui.size()
-screenshot = ImageGrab.grab(bbox=(0, 0, screen_width, screen_height))
-screenshot.save("screenshot.png")
+import base64
+import io
 
 class TaskListCreateView(generics.ListCreateAPIView):
     queryset = Task.objects.all()
@@ -20,10 +18,17 @@ class TaskRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
 
 def Screenshot(request):
-    screenshot.save("screenshot.png")
-    print(screenshot)
+    # screen_width, screen_height = pyautogui.size()
+    # screenshot = ImageGrab.grab(bbox=(0, 0, screen_width, screen_height)) 
+    
+    screenshot = ImageGrab.grab() 
+    buffer = io.BytesIO()
+    screenshot.save("screenshot1.png")
+    # print(screenshot)
     screenshot_bytes = screenshot.tobytes() 
+    # base64_screenshot = base64.b64encode(buffer.getvalue()).decode()
     # Encode the bytes as a base64 string
-    screenshot_base64 = pybase64.b64encode(screenshot_bytes).decode('utf-8') 
-    print(screenshot_base64)
-    return HttpResponse("Screenshot",screenshot_base64)
+    # screenshot_base64 = pybase64.b64encode(screenshot_bytes).decode('utf-8') 
+    base64_screenshot = base64.b64encode(screenshot_bytes).decode()
+    print("base64_screenshot",base64_screenshot)
+    return HttpResponse(base64_screenshot)
