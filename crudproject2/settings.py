@@ -25,8 +25,34 @@ SECRET_KEY = '!&ek42o$r&3m4q^+#6eb3zurm-x8=xu@=^8ebud8%&!l)iuxt0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+CORS_ORIGIN_WHITELIST = (
+  'http://localhost:3000',
+)
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
+
+CORS_ALLOW_HEADERS = (
+    "content-type",
+    "Access-Control-Allow-Origin"
+)
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000"
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -39,9 +65,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'enroll',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'crudproject2.urls'
