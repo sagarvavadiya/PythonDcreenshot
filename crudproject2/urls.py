@@ -19,6 +19,7 @@ from enroll import views
 
 urlpatterns = [
     path('tasks/', views.TaskListCreateView.as_view(), name='task-list-create'),
-    path('Screenshot/', views.Screenshot , name='Screenshot'),
+    path('ActiveScreen/', views.ActiveScreen , name='ActiveScreen'),
+    path('ActiveScreenIndex/', views.ActiveScreenIndex , name='ScreenId'),
     path('tasks/<int:pk>/', views.TaskRetrieveUpdateDestroyView.as_view(), name='task-retrieve-update-destroy'),
 ]
